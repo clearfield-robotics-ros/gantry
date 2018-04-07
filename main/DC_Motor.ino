@@ -3,7 +3,7 @@
 //Speeds
 double Right = 20;
 double Left = 180;
-double Forward = 200;
+double Forward = 255;
 double Backward = 0;
 
 //State

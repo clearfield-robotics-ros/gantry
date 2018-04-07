@@ -14,7 +14,7 @@ extern int zeroSpeed = 90;
 //Sweep speeds
 extern volatile int speed_X = zeroSpeed;
 extern volatile int speed_Y = zeroSpeed;
-extern volatile double sweepRight = 30;
+extern volatile double sweepRight = 20;
 extern volatile double sweepLeft = 200;
 
 //Encoder X
@@ -83,7 +83,7 @@ gantry::gantry_status gantry_status;
 ros::Publisher gantryStatus("gantry_current_status", &gantry_status);
 
 //Debug mode
-extern bool Debug = false;
+extern bool Debug = true;
 
 
 //******** Setup for Main ********//
