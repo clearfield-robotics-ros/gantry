@@ -5,7 +5,7 @@ double slowSpeed;
 
 void sweep() {
 //  if (Initialization_Flag) {
-    stepper_pos = 0;
+    stepper_pos = 700;
     stepper_rot.runToNewPosition(stepper_pos);
     if (speed_Y == zeroSpeed && Y_encoderTicks > buffer && Y_encoderTicks < Y_max - buffer) {
       set_speed(zeroSpeed, sweepLeft);

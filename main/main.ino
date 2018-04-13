@@ -52,7 +52,7 @@ extern volatile double stepper_pos = 0;
 #define limSwitch4 7
 //X_min axis switches
 #define limSwitch5 8
-//#define limSwitch6 22
+#define limSwitch6 22
 
 extern volatile int but_interrupt_flag = 1;
 
@@ -86,15 +86,6 @@ ros::Publisher gantryStatus("gantry_current_status", &gantry_status);
 
 //Debug mode
 extern bool Debug = false;
-//
-//double cmToTicksY = 52.8562;
-//double ticksToCmY = 1/cmToTicksY;
-//
-//double cmToTicksX = 805.53;
-//double ticksToCmX = 1/cmToTicksX;
-//
-//double cmX;
-//double cmY;
 
 
 //******** Setup for Main ********//
@@ -181,7 +172,7 @@ void loop() {
         if (incoming.startsWith("R")) {
           incoming.remove(0,1);
           R_desired = incoming.toInt();
-          if (R_desired > 800 || R_desired < -1200) {
+          if (R_desired > 1000 || R_desired < -1000) {
             Serial.println("R Value out of range");
             R_desired = 0;
           }

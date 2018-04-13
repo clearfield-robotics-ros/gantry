@@ -10,7 +10,7 @@ int debounce_time = 100;
 #define limSwitch4 7
 //X_min axis switches
 #define limSwitch5 8
-#define limSwitch6 22
+//#define limSwitch6 22
 
 void switch_setup() {
   
@@ -20,7 +20,7 @@ void switch_setup() {
   attachInterrupt(digitalPinToInterrupt(limSwitch3),limitState_X_max, RISING);
   attachInterrupt(digitalPinToInterrupt(limSwitch4),limitState_X_max, RISING);
   attachInterrupt(digitalPinToInterrupt(limSwitch5),limitState_X_min, RISING);
-  attachInterrupt(digitalPinToInterrupt(limSwitch6),limitState_X_min, RISING);
+//  attachInterrupt(digitalPinToInterrupt(limSwitch6),limitState_X_min, RISING);
 
 }
 

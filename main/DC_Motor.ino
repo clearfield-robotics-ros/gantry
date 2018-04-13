@@ -1,8 +1,8 @@
 /******** Motor Specific Variables ********/
 
 //Speeds
-double Right = 20;
-double Left = 180;
+double Right = 40;
+double Left = 170;
 double Forward = 255;
 double Backward = 0;
 
@@ -34,9 +34,9 @@ void motor_setup() {
 
   //Stepper Motor Init
   stepper_rot.setMaxSpeed(1000);
-  stepper_rot.setAcceleration(1000);
+  stepper_rot.setAcceleration(500);
   stepper_rot.setSpeed(400);
-  stepper_rot.setCurrentPosition(0.0); 
+  stepper_rot.setCurrentPosition(-1000.0); 
   pinMode(Enable, OUTPUT);
 
   //Encoder Init
@@ -70,6 +70,7 @@ void initialize() {
 
   //Init_State 0: go to Y_min limit switch and encoderTicks to 0
   if (init_state == 0) {
+    stepper_rot.runToNewPosition(700);
     Y_encoderTicks = 0;
     set_speed(zeroSpeed, Right);
   }
@@ -113,8 +114,7 @@ void initialize() {
   //Init_State 6: rotate rotary plate forward and back to 800 ticks
   else if (init_state == 6){
     set_speed(zeroSpeed, zeroSpeed);
-//    stepper_rot.runToNewPosition(1000);
-//    stepper_rot.runToNewPosition(0);
+    stepper_rot.runToNewPosition(700);
     init_state = 7;
     Initialization_Flag = true;
   }

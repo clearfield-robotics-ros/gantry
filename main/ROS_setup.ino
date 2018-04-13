@@ -1,10 +1,10 @@
 //setup subscriber
 ros::Subscriber<gantry::to_gantry_msg> sub("gantry_cmd", messageCb);
 
-double cmToTicksY = 52.8562;
+double cmToTicksY = 561.121;  //52.8562;
 double ticksToCmY = 1/cmToTicksY;
 
-double cmToTicksX = 805.53;
+double cmToTicksX = 8168.966; //805.53;
 double ticksToCmX = 1/cmToTicksX;
 
 void rosSetup() {
@@ -41,7 +41,7 @@ void readyGantryMsg()
    gantry_status.sweep_speed = speed_Y - 90;
    gantry_status.x =  X_encoderTicks * ticksToCmX ;
    gantry_status.y =  Y_encoderTicks * ticksToCmY;
-   gantry_status.yaw = 3.14159 * stepper_pos/2000;
+   gantry_status.yaw = -3.14159 * stepper_pos/2000;
    gantry_status.probe_angle = 0;
    gantry_status.position_reached = arrived;
 }
@@ -66,5 +66,5 @@ void messageCb( const gantry::to_gantry_msg& gantry_cmd){
   if (sweepLeft > 255) {sweepLeft == 255;} 
   X_desired = gantry_cmd.x_desired * cmToTicksX ;
   Y_desired = gantry_cmd.y_desired * cmToTicksY;
-  R_desired = gantry_cmd.yaw_desired * 2000 / 3.14159;
+  R_desired = -gantry_cmd.yaw_desired * 2000 / 3.14159;
 }

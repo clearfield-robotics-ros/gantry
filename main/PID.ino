@@ -27,6 +27,10 @@ double kd_X = 0;
 double kp_Y = 10;
 double kd_Y = 0;
 
+//Effective Max and Min for gantry angles
+double eMaxY;
+double eMinY;
+
 /*****************************************************************/
 /* POSITION CONTROL
  *  Given a position serial command, move to that position using 
@@ -35,11 +39,28 @@ double kd_Y = 0;
  /*****************************************************************/
 bool PIDControl(int X_goal, int Y_goal) {
 
-  stepper_pos = R_desired;
-  stepper_rot.runToNewPosition(stepper_pos);
+  if (R_desired <= 1000 && R_desired >= -1000) {
+    if (Y_encoderTicks < 3800 || Y_encoderTicks > 1150){
+      stepper_pos = R_desired;
+      stepper_rot.runToNewPosition(stepper_pos);
+    } 
+  }
 
+  if (stepper_pos > -1000 && stepper_pos < -750){
+    eMinY = 200;
+  }
+  else if (stepper_pos < 250 && stepper_pos > -700) {
+    eMaxY = Y_max - 1000;
+  }
+  else if (stepper_pos < 1000 && stepper_pos > 750) {
+    eMaxY = Y_max - 1000;
+  }
+  else {
+    eMinY = 150;
+    eMaxY = Y_max - 150;
+  }
   //Move gantry plate if position command is valid.
-  if (X_goal < X_max && X_goal > 0 && Y_goal < Y_max && Y_goal > 0 && Initialization_Flag){
+  if (X_goal < X_max && X_goal > 0 && Y_goal < eMaxY && Y_goal > eMinY && Initialization_Flag){
         
     // calculate current time and timestep
     nowTime = millis();
@@ -77,6 +98,7 @@ bool PIDControl(int X_goal, int Y_goal) {
     if (Debug) {
       Serial.print(X_encoderTicks); Serial.print("   ===>    "); Serial.print(X_goal); Serial.print("   ===>    "); Serial.println(speed_X);
       Serial.print(Y_encoderTicks); Serial.print("   ===>    "); Serial.print(Y_goal); Serial.print("   ===>    "); Serial.println(speed_Y);
+      Serial.print("R_pos");Serial.print("   ===>    "); Serial.print(stepper_pos);
     }
 
     //If gantry is within the position error and not moving, set that the desired position has been reached
