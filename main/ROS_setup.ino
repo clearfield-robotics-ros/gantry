@@ -39,9 +39,9 @@ void readyGantryMsg()
 {
    gantry_status.state = STATE;
    gantry_status.sweep_speed = speed_Y - 90;
-   gantry_status.x =  X_encoderTicks ;
-   gantry_status.y =  Y_encoderTicks ;
-   gantry_status.yaw = 0;
+   gantry_status.x =  X_encoderTicks * ticksToCmX ;
+   gantry_status.y =  Y_encoderTicks * ticksToCmY;
+   gantry_status.yaw = 3.14159 * stepper_pos/2000;
    gantry_status.probe_angle = 0;
    gantry_status.position_reached = arrived;
 }
@@ -64,7 +64,7 @@ void messageCb( const gantry::to_gantry_msg& gantry_cmd){
   sweepLeft = 110 + gantry_cmd.sweep_speed_desired;
   if (sweepRight < 0) {sweepRight == 0;} 
   if (sweepLeft > 255) {sweepLeft == 255;} 
-  X_desired = gantry_cmd.x_desired ;
-  Y_desired = gantry_cmd.y_desired ;
-  R_desired = gantry_cmd.yaw_desired;
+  X_desired = gantry_cmd.x_desired * cmToTicksX ;
+  Y_desired = gantry_cmd.y_desired * cmToTicksY;
+  R_desired = gantry_cmd.yaw_desired * 2000 / 3.14159;
 }

@@ -33,7 +33,9 @@ extern volatile double Y_encoderTicks = 0;
 
 //Rotational Stepper Motor
 #define Enable 18
-AccelStepper stepper_rot(1, 20, 17) ;
+AccelStepper stepper_rot(1, 20, 17);
+extern volatile double stepper_pos = 0;
+
 
 //Relays
 #define relay_Y 3
@@ -83,7 +85,16 @@ gantry::gantry_status gantry_status;
 ros::Publisher gantryStatus("gantry_current_status", &gantry_status);
 
 //Debug mode
-extern bool Debug = true;
+extern bool Debug = false;
+//
+//double cmToTicksY = 52.8562;
+//double ticksToCmY = 1/cmToTicksY;
+//
+//double cmToTicksX = 805.53;
+//double ticksToCmX = 1/cmToTicksX;
+//
+//double cmX;
+//double cmY;
 
 
 //******** Setup for Main ********//
@@ -137,12 +148,13 @@ void loop() {
   
   if (STATE == 2) {
     sweep();
-    Serial.println(speed_Y);
+//    cmX = X_encoderTicks*ticksToCmX;
+//    cmY = Y_encoderTicks*ticksToCmY;
+//    Serial.print("X   ");Serial.print(cmX);Serial.print("Y  "); Serial.println(cmY);
     PID_switch = true;
   }
 
   if (STATE == 3) {
-    
 
     if (Debug) {
       if (PID_switch) {
@@ -169,7 +181,7 @@ void loop() {
         if (incoming.startsWith("R")) {
           incoming.remove(0,1);
           R_desired = incoming.toInt();
-          if (R_desired > 800 || R_desired < -800) {
+          if (R_desired > 800 || R_desired < -1200) {
             Serial.println("R Value out of range");
             R_desired = 0;
           }

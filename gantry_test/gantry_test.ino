@@ -23,7 +23,7 @@ extern volatile int Y_encoderTicks = 0;
 
 //Rotational Stepper Motor
 #define Enable 18
-AccelStepper stepper_rot(1, 20, 17) ;
+AccelStepper stepper_rot(1, 20, 17);
 
 //Relays
 #define relay_Y 3
@@ -93,7 +93,7 @@ void setup() {
   digitalWrite(LED3, HIGH);
 
   stepper_rot.setMaxSpeed(1000);
-  stepper_rot.setAcceleration(150);
+  stepper_rot.setAcceleration(1000);
   stepper_rot.setSpeed(400);
   stepper_rot.setCurrentPosition(0.0);
   //pinMode(enable, OUTPUT);
@@ -108,9 +108,9 @@ void loop() {
 //  set_speed(180, zeroSpeed);
 //  Serial.println('X');
 
-  stepper_rot.runToNewPosition(400);
+  stepper_rot.runToNewPosition(0);
   delay(1000);
-  stepper_rot.runToNewPosition(-400);
+  stepper_rot.runToNewPosition(1000);
   delay(1000);
 
 //digitalWrite(relay_Y, HIGH);

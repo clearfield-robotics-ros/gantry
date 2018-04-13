@@ -34,7 +34,7 @@ void motor_setup() {
 
   //Stepper Motor Init
   stepper_rot.setMaxSpeed(1000);
-  stepper_rot.setAcceleration(2000);
+  stepper_rot.setAcceleration(1000);
   stepper_rot.setSpeed(400);
   stepper_rot.setCurrentPosition(0.0); 
   pinMode(Enable, OUTPUT);
@@ -112,9 +112,9 @@ void initialize() {
 
   //Init_State 6: rotate rotary plate forward and back to 800 ticks
   else if (init_state == 6){
-//    set_speed(zeroSpeed, zeroSpeed);
-//    stepper_rot.runToNewPosition(800);
-//    stepper_rot.runToNewPosition(-800);
+    set_speed(zeroSpeed, zeroSpeed);
+//    stepper_rot.runToNewPosition(1000);
+//    stepper_rot.runToNewPosition(0);
     init_state = 7;
     Initialization_Flag = true;
   }
