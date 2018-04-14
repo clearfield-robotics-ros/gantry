@@ -70,7 +70,8 @@ void initialize() {
 
   //Init_State 0: go to Y_min limit switch and encoderTicks to 0
   if (init_state == 0) {
-    stepper_rot.runToNewPosition(700);
+    stepper_pos = 700;
+    stepper_rot.runToNewPosition(stepper_pos);
     Y_encoderTicks = 0;
     set_speed(zeroSpeed, Right);
   }

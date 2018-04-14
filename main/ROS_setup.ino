@@ -1,11 +1,17 @@
 //setup subscriber
 ros::Subscriber<gantry::to_gantry_msg> sub("gantry_cmd", messageCb);
 
-double cmToTicksY = 561.121;  //52.8562;
+double cmToTicksY = 5.61121;  //52.8562;
 double ticksToCmY = 1/cmToTicksY;
 
-double cmToTicksX = 8168.966; //805.53;
+double cmToTicksX = 81.68966; //805.53;
 double ticksToCmX = 1/cmToTicksX;
+
+geometry_msgs::TransformStamped t;
+tf::TransformBroadcaster broadcaster;
+
+char sensor_head[] = "/sensor_head";
+char gantry_frame[] = "/gantry";
 
 void rosSetup() {
   
@@ -14,6 +20,7 @@ void rosSetup() {
   if (!Debug) {
     nh.getHardware()->setBaud(115200); //115200
     nh.initNode();
+    broadcaster.init(nh);
   }
   
   nh.advertise(gantryStatus);
@@ -42,8 +49,30 @@ void readyGantryMsg()
    gantry_status.x =  X_encoderTicks * ticksToCmX ;
    gantry_status.y =  Y_encoderTicks * ticksToCmY;
    gantry_status.yaw = -3.14159 * stepper_pos/2000;
-   gantry_status.probe_angle = 0;
+   gantry_status.calibration_flag = Initialization_Flag;
    gantry_status.position_reached = arrived;
+   gantry_status.x_min = 250 * ticksToCmX;
+   gantry_status.x_max = (X_max - 250) * ticksToCmX;
+   gantry_status.y_min = 250 * ticksToCmY;
+   gantry_status.y_max = (Y_max - 250) * ticksToCmY;
+}
+
+/**************************************************************************/
+/*
+    PUBLISHER
+    Assign values to tf messages
+   * 
+*/
+/**************************************************************************/
+void gantry_tf()
+{
+  t.header.frame_id = gantry_frame;
+  t.child_frame_id = sensor_head;
+  t.transform.translation.x = X_encoderTicks * ticksToCmX ;
+  t.transform.translation.y = Y_encoderTicks * ticksToCmY ;
+  t.transform.rotation = tf::createQuaternionFromYaw(-3.14159 * stepper_pos/2000);
+  t.header.stamp = nh.now();
+  broadcaster.sendTransform(t);
 }
 
 /**************************************************************************/
@@ -55,7 +84,6 @@ void readyGantryMsg()
    * to_gantry_msg.x_desired ==> X_desired
    * to_gantry_msg.y_desired ==> Y_desired
    * to_gantry_msg.yaw_desired ==> R_desired
-   * gantry_status.probe_angle_desired; ==>
 */
 /**************************************************************************/
 void messageCb( const gantry::to_gantry_msg& gantry_cmd){

@@ -4,6 +4,10 @@
 #include <gantry/to_gantry_msg.h>
 #include <gantry/gantry_status.h>
 
+#include <tf/tf.h>
+#include <tf/transform_broadcaster.h>
+
+
 //******** Define Variables ********//
 
 ///Motors
@@ -125,6 +129,7 @@ void loop() {
 //    //ROS gantry_status message publisher
     readyGantryMsg();
     gantryStatus.publish(&gantry_status);
+    gantry_tf();
     nh.spinOnce();
     delay(1);
   }
