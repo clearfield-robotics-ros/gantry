@@ -88,6 +88,12 @@ ros::NodeHandle nh;
 gantry::gantry_status gantry_status;
 ros::Publisher gantryStatus("gantry_current_status", &gantry_status);
 
+//Timing variables
+long int time;
+double dt_pub = 0;
+long int lastPubTime = 0;
+int dataRate = 100; // ms or 10Hz
+
 //Debug mode
 extern bool Debug = false;
 
@@ -126,12 +132,16 @@ void setup() {
 void loop() {
   
   if (!Debug) { 
-//    //ROS gantry_status message publisher
-    readyGantryMsg();
-    gantryStatus.publish(&gantry_status);
-    gantry_tf();
-    nh.spinOnce();
-    delay(1);
+    time = millis();
+    dt_pub = (time - lastPubTime);
+    if (dt_pub > dataRate) {
+      lastPubTime = time;
+      readyGantryMsg();
+      gantryStatus.publish(&gantry_status);
+      gantry_tf();
+      nh.spinOnce();
+      delay(1);
+    }
   }
   
   if (STATE == 0 || STATE == 4) {
