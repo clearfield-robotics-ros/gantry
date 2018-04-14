@@ -45,7 +45,7 @@ void rosSetup() {
 void readyGantryMsg()
 {
    gantry_status.state = STATE;
-   gantry_status.sweep_speed = speed_Y - 90;
+   gantry_status.sweep_speed = 100 - sweepRight;
    gantry_status.x =  X_encoderTicks * ticksToCmX ;
    gantry_status.y =  Y_encoderTicks * ticksToCmY;
    gantry_status.yaw = -3.14159 * stepper_pos/2000;

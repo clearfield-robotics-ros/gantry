@@ -154,9 +154,7 @@ void loop() {
   
   if (STATE == 2) {
     sweep();
-//    cmX = X_encoderTicks*ticksToCmX;
-//    cmY = Y_encoderTicks*ticksToCmY;
-//    Serial.print("X   ");Serial.print(cmX);Serial.print("Y  "); Serial.println(cmY);
+    
     PID_switch = true;
   }
 

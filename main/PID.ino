@@ -47,18 +47,21 @@ bool PIDControl(int X_goal, int Y_goal) {
   }
 
   if (stepper_pos > -1000 && stepper_pos < -750){
-    eMinY = 200;
+    eMinY = 1250;
+    eMaxY = Y_max - 250;
   }
   else if (stepper_pos < 250 && stepper_pos > -700) {
     eMaxY = Y_max - 1000;
+    eMinY = 250;
   }
   else if (stepper_pos < 1000 && stepper_pos > 750) {
     eMaxY = Y_max - 1000;
   }
   else {
-    eMinY = 150;
-    eMaxY = Y_max - 150;
+    eMinY = 250;
+    eMaxY = Y_max - 250;
   }
+  
   //Move gantry plate if position command is valid.
   if (X_goal < X_max && X_goal > 0 && Y_goal < eMaxY && Y_goal > eMinY && Initialization_Flag){
         

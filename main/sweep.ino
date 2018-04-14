@@ -1,5 +1,5 @@
 //saftey buffer
-double buffer = 500;
+double buffer = 250;
 double slowZone = 2000;
 double slowSpeed;
 
@@ -23,7 +23,7 @@ void sweep() {
       set_speed(zeroSpeed, slowSpeed);
     }
     else if (Y_encoderTicks > Y_max - slowZone && speed_Y > 90) {
-      slowSpeed = (sweepLeft + .02*((Y_max-slowZone) - Y_encoderTicks));
+      slowSpeed = (sweepLeft + .015*((Y_max-slowZone) - Y_encoderTicks));
       set_speed(zeroSpeed, slowSpeed);
     }
 //  }

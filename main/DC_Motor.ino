@@ -1,8 +1,8 @@
 /******** Motor Specific Variables ********/
 
 //Speeds
-double Right = 40;
-double Left = 170;
+double Right = 50;
+double Left = 160;
 double Forward = 255;
 double Backward = 0;
 
