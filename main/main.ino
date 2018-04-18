@@ -18,8 +18,8 @@ extern int zeroSpeed = 90;
 //Sweep speeds
 extern volatile int speed_X = zeroSpeed;
 extern volatile int speed_Y = zeroSpeed;
-extern volatile double sweepRight = 20;
-extern volatile double sweepLeft = 200;
+extern volatile double sweepRight = 10;
+extern volatile double sweepLeft = 220;
 
 //Encoder X
 #define X_channelAPin 15
@@ -231,6 +231,7 @@ void stateChange() {
         case 0:
           if (Debug) {Serial.println("State: Initialize");}
           STATE = 1;
+          stepper_rot.setCurrentPosition(-1000.0); 
           init_state = 0;
           Initialization_Flag = false;
           break;

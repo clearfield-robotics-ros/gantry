@@ -10,7 +10,7 @@ int positionError_X = 0;
 double positionErrorSum_X = 0;
 int prevPositionError_X = 0;
 //Y
-int Error_Y = 10;
+int Error_Y = 20;
 int positionError_Y = 0;
 double positionErrorSum_Y = 0;
 int prevPositionError_Y = 0;
@@ -47,19 +47,19 @@ bool PIDControl(int X_goal, int Y_goal) {
   }
 
   if (stepper_pos > -1000 && stepper_pos < -750){
-    eMinY = 1250;
-    eMaxY = Y_max - 250;
+    eMinY = 1000;
+    eMaxY = Y_max - 150;
   }
-  else if (stepper_pos < 250 && stepper_pos > -700) {
-    eMaxY = Y_max - 1000;
-    eMinY = 250;
+  else if (stepper_pos < 250 && stepper_pos > -500) {
+    eMaxY = Y_max - 1250;
+    eMinY = 150;
   }
   else if (stepper_pos < 1000 && stepper_pos > 750) {
-    eMaxY = Y_max - 1000;
+    eMaxY = Y_max - 1250;
   }
   else {
-    eMinY = 250;
-    eMaxY = Y_max - 250;
+    eMinY = 150;
+    eMaxY = Y_max - 150;
   }
   
   //Move gantry plate if position command is valid.

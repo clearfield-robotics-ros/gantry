@@ -23,7 +23,7 @@ void sweep() {
       set_speed(zeroSpeed, slowSpeed);
     }
     else if (Y_encoderTicks > Y_max - slowZone && speed_Y > 90) {
-      slowSpeed = (sweepLeft + .015*((Y_max-slowZone) - Y_encoderTicks));
+      slowSpeed = (sweepLeft + .01*((Y_max-slowZone) - Y_encoderTicks));
       set_speed(zeroSpeed, slowSpeed);
     }
 //  }

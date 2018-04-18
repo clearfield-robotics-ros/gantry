@@ -107,11 +107,15 @@ void loop() {
 //
 //  set_speed(180, zeroSpeed);
 //  Serial.println('X');
+  delay(5000);
 
-//  stepper_rot.runToNewPosition(0);
-//  delay(1000);
-//  stepper_rot.runToNewPosition(1000);
-//  delay(1000);
+  stepper_rot.runToNewPosition(0);
+  delay(1000);
+  stepper_rot.runToNewPosition(980);
+  delay(1000);
+  
+  stepper_rot.runToNewPosition(1960);
+  delay(1000);
 
 //digitalWrite(relay_Y, HIGH);
 //delay(1000);
