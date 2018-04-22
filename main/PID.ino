@@ -5,12 +5,12 @@ double dt= 0;
 
 //error variables
 //X
-int Error_X = 10;
+int Error_X = 20;
 int positionError_X = 0;
 double positionErrorSum_X = 0;
 int prevPositionError_X = 0;
 //Y
-int Error_Y = 20;
+int Error_Y = 30;
 int positionError_Y = 0;
 double positionErrorSum_Y = 0;
 int prevPositionError_Y = 0;
@@ -121,7 +121,9 @@ bool PIDControl(int X_goal, int Y_goal) {
     }
     // update values for next timestep
     prevPositionError_X = positionError_X;
+    prevPositionError_Y = positionError_Y;
     prevTime = nowTime;
+    
   }
   
   if (arrived_X && arrived_Y){ arrived = true;}

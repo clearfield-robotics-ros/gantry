@@ -18,7 +18,7 @@ void rosSetup() {
   delay(1000);
   
   if (!Debug) {
-    nh.getHardware()->setBaud(115200); //115200
+    nh.getHardware()->setBaud(9600); //115200
     nh.initNode();
     broadcaster.init(nh);
   }

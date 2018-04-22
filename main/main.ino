@@ -18,8 +18,8 @@ extern int zeroSpeed = 90;
 //Sweep speeds
 extern volatile int speed_X = zeroSpeed;
 extern volatile int speed_Y = zeroSpeed;
-extern volatile double sweepRight = 10;
-extern volatile double sweepLeft = 220;
+extern volatile double sweepRight = 0;
+extern volatile double sweepLeft = 210;
 
 //Encoder X
 #define X_channelAPin 15
@@ -101,7 +101,7 @@ extern bool Debug = false;
 //******** Setup for Main ********//
 void setup() {
   
-  if (Debug) { Serial.begin(9600);}
+if (Debug) { Serial.begin(9600);}
   
   rosSetup();
 
@@ -149,6 +149,11 @@ void loop() {
   }
   
   if (STATE == 1) {
+    if (!Debug) {
+        stepper_rot.setCurrentPosition(-1000.0); 
+        init_state = 0;
+        Initialization_Flag = false;
+    }
     initialize();
   }
   
