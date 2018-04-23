@@ -149,11 +149,11 @@ void loop() {
   }
   
   if (STATE == 1) {
-    if (!Debug) {
-        stepper_rot.setCurrentPosition(-1000.0); 
-        init_state = 0;
-        Initialization_Flag = false;
-    }
+//    if (!Debug && Initialization_Flag == true); {
+//        stepper_rot.setCurrentPosition(-1000.0); 
+//        init_state = 0;
+//        Initialization_Flag = false;
+//    }
     initialize();
   }
   
